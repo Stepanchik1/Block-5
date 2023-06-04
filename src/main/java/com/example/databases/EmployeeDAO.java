@@ -2,6 +2,7 @@ package com.example.databases;
 
 import model.Employee;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,25 +11,19 @@ import java.util.TreeMap;
 
 public interface EmployeeDAO {
 
-    abstract void addEmployee(Employee employee);
+    abstract void addEmployee(Connection connection) throws SQLException;
 
-        abstract Employee downloadEmployee(PreparedStatement statement, int index, int id) throws SQLException;
+    abstract int getMaxID (Connection connection) throws SQLException;
 
+        abstract void deleteEmployee(Connection connection, int id) throws SQLException;
 
-        default void saveEmployee(PreparedStatement statement, int index, int id) throws SQLException {
-            Employee newEmployee = downloadEmployee(statement, index, id);
-            addEmployee(newEmployee);
-        }
+        abstract void updateEmployee(Connection connection, int id) throws SQLException;
 
-        abstract void deleteEmployee(int id);
+        abstract boolean findEmployee(Connection connection, int id) throws SQLException;
 
-        abstract void updateEmployee(int id);
+        abstract void chooseEmployee(Connection connection, int id) throws SQLException;
 
-        abstract void findEmployee(int id);
-
-        abstract Employee chooseEmployee(int id);
-
-        abstract void showAllEmployees();
+        abstract void showAllEmployees(Connection connection) throws SQLException;
 
     }
 

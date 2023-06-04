@@ -79,4 +79,9 @@ public class Employee {
                 ", индекс города - " + cityID
                 ;
     }
+
+    public String toDataBase () {
+        if (cityID==0) {return "'"+firstName+"', '"+lastName+"', '"+gender+"', "+age;}
+        return "'"+firstName+"', '"+lastName+"', '"+gender+"', "+age+", "+cityID;
+    }
 }
