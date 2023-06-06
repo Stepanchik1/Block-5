@@ -14,17 +14,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     public Employee createEmployee(int id) {
         System.out.println("Введите имя сотрудника: ");
-        Scanner scanner1 = new Scanner(System.in);
-        String name = scanner1.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
         System.out.println("Введите фамилию сотрудника: ");
-        Scanner scanner2 = new Scanner(System.in);
-        String lastName = scanner2.nextLine();
+        String lastName = scanner.nextLine();
         int gender = 0;
         for (; ; ) {
             System.out.println("Выберие пол сотрудника: 1-муж, 2-жен ");
-            Scanner scanner3 = new Scanner(System.in);
             try {
-                gender = scanner3.nextInt();
+                gender = scanner.nextInt();
                 if (gender != 1 && gender != 2) {
                     throw new NumberFormatException();
                 } else {
@@ -42,9 +40,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         int age = 0;
         for (; ; ) {
             System.out.println("Введите возраст сотрудника: ");
-            Scanner scanner4 = new Scanner(System.in);
             try {
-                age = scanner4.nextInt();
+                age = scanner.nextInt();
                 break;
             } catch (NumberFormatException | InputMismatchException num) {
                 System.out.println("Введите число");
@@ -53,9 +50,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         int cityID = 0;
         for (; ; ) {
             System.out.println("Введите индекс города сотрудника: ");
-            Scanner scanner5 = new Scanner(System.in);
             try {
-                cityID = scanner5.nextInt();
+                cityID = scanner.nextInt();
                 break;
             } catch (NumberFormatException | InputMismatchException num) {
                 System.out.println("Введите число");
