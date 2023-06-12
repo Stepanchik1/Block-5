@@ -24,6 +24,8 @@ public interface EmployeeDAO {
         abstract void chooseEmployee(Connection connection, int id) throws SQLException;
 
         abstract void showAllEmployees(Connection connection) throws SQLException;
+        abstract TreeMap <Integer, Employee> getListOfEmployees (Connection connection) throws SQLException;
 
+    abstract Employee getEmployee (Connection connection, int id) throws SQLException;
     }
 

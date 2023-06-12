@@ -147,7 +147,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         String gender = "";
         int age = 0;
         int cityId = 0;
-        while (resultSet.next()) {
+        if (resultSet.next()) {
             firstName = resultSet.getString("first_name");
             lastName = resultSet.getString("last_name");
             gender = resultSet.getString("gender");
@@ -156,7 +156,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
         Employee employee = new Employee(id, firstName, lastName, gender, age, cityId);
         if (firstName.isEmpty() && lastName.isEmpty() && gender.isEmpty()) {
-            employee = null;
             System.out.println("Сотрудника с данным id нет");
             return false;
         }
@@ -166,7 +165,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public void chooseEmployee(Connection connection, int id) throws SQLException {
-        if (findEmployee(connection, id)) {
+        boolean e = findEmployee(connection, id);
+        if (e) {
             System.out.println("Вы выбрали данного сотрудника");
         }
     }
@@ -197,5 +197,41 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 System.out.println(employee);
             }
         }
+    }
+
+    @Override
+    public TreeMap<Integer, Employee> getListOfEmployees(Connection connection) throws SQLException {
+        TreeMap<Integer, Employee> employeeTreeMap = new TreeMap<>();
+        for (int i = 1; i <= getMaxID(connection); i++) {
+    Employee employee = getEmployee(connection, i);
+    if (employee!=null) {
+    employeeTreeMap.put(i, employee);}
+}
+if (!employeeTreeMap.isEmpty()) return employeeTreeMap;
+else return null;
+    }
+
+    @Override
+    public Employee getEmployee(Connection connection, int id) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee WHERE id = (?)");
+        statement.setInt(1, id);
+        final ResultSet resultSet = statement.executeQuery();
+        String firstName = "";
+        String lastName = "";
+        String gender = "";
+        int age = 0;
+        int cityId = 0;
+        while (resultSet.next()) {
+            firstName = resultSet.getString("first_name");
+            lastName = resultSet.getString("last_name");
+            gender = resultSet.getString("gender");
+            age = resultSet.getInt(5);
+            cityId = resultSet.getInt(6);
+        }
+        Employee employee = new Employee(id, firstName, lastName, gender, age, cityId);
+        if (firstName.isEmpty() && lastName.isEmpty() && gender.isEmpty()) {
+            return null;
+        }
+        return employee;
     }
 }
