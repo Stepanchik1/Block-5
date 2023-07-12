@@ -20,9 +20,16 @@ public class DataBasesApplication {
 
         final Connection connection = DriverManager.getConnection(URL, user, password);
 
-        hometask1(connection);
-
         EmployeeDAOImpl employeeDAOImpl = new EmployeeDAOImpl();
+
+        //создаю пробный объект, чтоб протестить метод
+
+        Employee employee = new Employee(-200, "g", "f", "u", 23, 5);
+        employeeDAOImpl.changeEmployee(employee);  //на этой строке ошибка
+
+        //*****
+Scanner sc = new Scanner(System.in);
+String gggg = sc.nextLine(); //добавил чтоб программа прерывалась на этом месте
 
         for (; ; ) {
             System.out.println("Для выхода нажмите 0");
@@ -51,31 +58,6 @@ public class DataBasesApplication {
         }
     }
 
-    static void hometask1(Connection connection) throws SQLException {
-
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee WHERE id = (?)");
-        statement.setInt(1, 6);
-
-        final ResultSet resultSet = statement.executeQuery();
-
-        while (resultSet.next()) {
-
-            int id = resultSet.getInt(1);
-            String firstName = "имя: " + resultSet.getString("first_name");
-            String lastName = "фамилия: " + resultSet.getString("last_name");
-            String gender = "пол: " + resultSet.getString("gender");
-            int age = resultSet.getInt(5);
-            int cityId = resultSet.getInt(6);
-
-            System.out.println("id-" + id);
-            System.out.println(firstName);
-            System.out.println(lastName);
-            System.out.println(gender);
-            System.out.println("возраст: " + age);
-            System.out.println("индекс города - " + cityId);
-        }
-    }
-
     private static void action(Connection connection, int id, EmployeeDAOImpl employeeDAOImpl) {
         for (; ; ) {
             System.out.println("Выберите действие: \n1 - изменить информацию о сотруднике, \n2 - удалить сотрудника, \n0 - ничего не делать");
@@ -84,6 +66,7 @@ public class DataBasesApplication {
             try {
                 int ch = Integer.parseInt(s.trim());
                 if (ch == 0) return;
+      //          if (ch == -1) {employeeDAOImpl.changeEmployee();}
                 if (ch == 1) {
                     employeeDAOImpl.updateEmployee(connection, id);
                     return;
