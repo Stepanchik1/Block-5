@@ -27,5 +27,11 @@ public interface EmployeeDAO {
         abstract TreeMap <Integer, Employee> getListOfEmployees (Connection connection) throws SQLException;
 
     abstract Employee getEmployee (Connection connection, int id) throws SQLException;
+
+    // скорректированные методы из домашки по entity/hibernate
+
+    abstract void removeEmployee (Employee employee);
+    abstract void changeEmployee (Employee employee);
+
     }
 

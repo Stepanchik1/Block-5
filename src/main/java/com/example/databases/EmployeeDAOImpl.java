@@ -1,6 +1,8 @@
 package com.example.databases;
 
 import model.Employee;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -233,5 +235,23 @@ else return null;
             return null;
         }
         return employee;
+    }
+
+    @Override
+    public void removeEmployee(Employee employee) {
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.delete(employee);
+            transaction.commit();
+        }
+    }
+
+    @Override
+    public void changeEmployee(Employee employee) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
+            Transaction transaction = session.beginTransaction();
+            session.update(employee);
+            transaction.commit();
+        }
     }
 }
