@@ -254,4 +254,10 @@ else return null;
             transaction.commit();
         }
     }
+
+    @Override
+    public Employee findById(int id) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
+    }
+
 }

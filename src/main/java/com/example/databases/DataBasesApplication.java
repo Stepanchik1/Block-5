@@ -24,8 +24,13 @@ public class DataBasesApplication {
 
         //создаю пробный объект, чтоб протестить метод
 
-        Employee employee = new Employee(-200, "g", "f", "u", 23, 5);
-        employeeDAOImpl.changeEmployee(employee);  //на этой строке ошибка
+        //Employee employee = new Employee(-200, "g", "f", "u", 23, 5);
+        //employeeDAOImpl.changeEmployee(employee);  //на этой строке ошибка
+
+entity (employeeDAOImpl);
+
+
+
 
         //*****
 Scanner sc = new Scanner(System.in);
@@ -80,5 +85,22 @@ String gggg = sc.nextLine(); //добавил чтоб программа пре
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public static void entity (EmployeeDAOImpl employeeDAOImp) {
+        Employee newEmployee = null;
+        try {
+        Scanner scanner = new Scanner(System.in);
+        int id = scanner.nextInt();
+        System.out.println("id равен "+id);
+        newEmployee = employeeDAOImp.findById(id);
+        System.out.println(newEmployee);}
+        catch (NullPointerException error) {
+            System.out.println("По такому id никто не выбран из БД");
+        }
+        //employeeDAOImp.changeEmployee(newEmployee);
+        //System.out.println(newEmployee);
+        //employeeDAOImp.removeEmployee(newEmployee);
+        //System.out.println(newEmployee);
     }
 }

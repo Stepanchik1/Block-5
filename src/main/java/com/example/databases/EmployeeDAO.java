@@ -33,5 +33,7 @@ public interface EmployeeDAO {
     abstract void removeEmployee (Employee employee);
     abstract void changeEmployee (Employee employee);
 
+    abstract Employee findById (int id);
+
     }
 
