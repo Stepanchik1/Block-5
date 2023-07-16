@@ -11,29 +11,29 @@ import java.util.TreeMap;
 
 public interface EmployeeDAO {
 
-    abstract void addEmployee(Connection connection) throws SQLException;
+    void addEmployee(Connection connection) throws SQLException;
 
-    abstract int getMaxID (Connection connection) throws SQLException;
+    int getMaxID (Connection connection) throws SQLException;
 
-        abstract void deleteEmployee(Connection connection, int id) throws SQLException;
+        void deleteEmployee(Connection connection, int id) throws SQLException;
 
-        abstract void updateEmployee(Connection connection, int id) throws SQLException;
+        void updateEmployee(Connection connection, int id) throws SQLException;
 
-        abstract boolean findEmployee(Connection connection, int id) throws SQLException;
+        boolean findEmployee(Connection connection, int id) throws SQLException;
 
-        abstract void chooseEmployee(Connection connection, int id) throws SQLException;
+        void chooseEmployee(Connection connection, int id) throws SQLException;
 
-        abstract void showAllEmployees(Connection connection) throws SQLException;
-        abstract TreeMap <Integer, Employee> getListOfEmployees (Connection connection) throws SQLException;
+        void showAllEmployees(Connection connection) throws SQLException;
+        TreeMap <Integer, Employee> getListOfEmployees (Connection connection) throws SQLException;
 
-    abstract Employee getEmployee (Connection connection, int id) throws SQLException;
+    Employee getEmployee (Connection connection, int id) throws SQLException;
 
     // скорректированные методы из домашки по entity/hibernate
 
-    abstract void removeEmployee (Employee employee);
-    abstract void changeEmployee (Employee employee);
+    void removeEmployee (Employee employee);
+    void changeEmployee (Employee employee);
 
-    abstract Employee findById (int id);
+    Employee findById (int id);
 
     }
 

@@ -1,14 +1,11 @@
 package com.example.databases;
 
 import model.Employee;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-@SpringBootApplication
 public class DataBasesApplication {
 
     final static String user = "postgres";
@@ -16,25 +13,13 @@ public class DataBasesApplication {
     final static String URL = "jdbc:postgresql://localhost:5432/skypro";
 
     public static void main(String[] args) throws SQLException {
-        SpringApplication.run(DataBasesApplication.class, args);
+        //SpringApplication.run(DataBasesApplication.class, args);
 
         final Connection connection = DriverManager.getConnection(URL, user, password);
 
         EmployeeDAOImpl employeeDAOImpl = new EmployeeDAOImpl();
 
-        //создаю пробный объект, чтоб протестить метод
-
-        //Employee employee = new Employee(-200, "g", "f", "u", 23, 5);
-        //employeeDAOImpl.changeEmployee(employee);  //на этой строке ошибка
-
-entity (employeeDAOImpl);
-
-
-
-
-        //*****
-Scanner sc = new Scanner(System.in);
-String gggg = sc.nextLine(); //добавил чтоб программа прерывалась на этом месте
+            entity(employeeDAOImpl);
 
         for (; ; ) {
             System.out.println("Для выхода нажмите 0");
@@ -71,7 +56,7 @@ String gggg = sc.nextLine(); //добавил чтоб программа пре
             try {
                 int ch = Integer.parseInt(s.trim());
                 if (ch == 0) return;
-      //          if (ch == -1) {employeeDAOImpl.changeEmployee();}
+                //          if (ch == -1) {employeeDAOImpl.changeEmployee();}
                 if (ch == 1) {
                     employeeDAOImpl.updateEmployee(connection, id);
                     return;
@@ -87,20 +72,47 @@ String gggg = sc.nextLine(); //добавил чтоб программа пре
         }
     }
 
-    public static void entity (EmployeeDAOImpl employeeDAOImp) {
-        Employee newEmployee = null;
-        try {
-        Scanner scanner = new Scanner(System.in);
-        int id = scanner.nextInt();
-        System.out.println("id равен "+id);
-        newEmployee = employeeDAOImp.findById(id);
-        System.out.println(newEmployee);}
-        catch (NullPointerException error) {
-            System.out.println("По такому id никто не выбран из БД");
+    public static void entity(EmployeeDAOImpl employeeDAOImp) {
+        for (; ; ) {
+            Employee newEmployee = null;
+            try {
+                System.out.println("Введите id сотрудника или 0, чтобы выйти");
+                Scanner scanner = new Scanner(System.in);
+                int id = scanner.nextInt();
+                if (id == 0) {
+                    return;
+                }
+                newEmployee = employeeDAOImp.findById(id);
+                System.out.println("Выбран " + newEmployee);
+                System.out.println("Введите новый возраст сотрудника");
+                int age = scanner.nextInt();
+                newEmployee.setAge(age);
+                employeeDAOImp.changeEmployee(newEmployee);
+                System.out.println("Изменено:" + employeeDAOImp.findById(id));
+                for (; ; ) {
+                    System.out.println("Введите id сотрудника, которого надо удалить или нажмите 0, чтобы вернуться назад");
+                    int idToRemove = scanner.nextInt();
+                    if (idToRemove == 0) {
+                        break;
+                    }
+                    newEmployee = employeeDAOImp.findById(idToRemove);
+                    if (newEmployee != null) {
+                        employeeDAOImp.removeEmployee(newEmployee);
+                        if (employeeDAOImp.findById(idToRemove) == null) {
+                            System.out.println("Удален " + newEmployee);
+                            break;
+                        } else {
+                            System.out.println("Не удалось удалить");
+                        }
+                        break;
+                    } else {
+                        System.out.println("Сотрудник с таким id не найден");
+                    }
+                }
+            } catch (NullPointerException error) {
+                System.out.println("Ошибка связи с БД");
+            }
         }
-        //employeeDAOImp.changeEmployee(newEmployee);
-        //System.out.println(newEmployee);
-        //employeeDAOImp.removeEmployee(newEmployee);
-        //System.out.println(newEmployee);
     }
 }
+

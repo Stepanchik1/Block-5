@@ -9,6 +9,8 @@
     <description>DataBases</description>
     <properties>
         <java.version>17</java.version>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
