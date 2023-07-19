@@ -19,6 +19,11 @@ public class DataBasesApplication {
 
         EmployeeDAOImpl employeeDAOImpl = new EmployeeDAOImpl();
 
+        CityDAOImpl cityDAOimpl = new CityDAOImpl();
+
+        //System.out.println(cityDAOimpl.findById(1));
+        System.out.println(employeeDAOImpl.findEmployee(connection, 5));
+
             entity(employeeDAOImpl);
 
         for (; ; ) {

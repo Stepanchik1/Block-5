@@ -21,6 +21,11 @@ public class Employee {
     @Column (name = "city_id")
     private int cityID;
 
+    @Column
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_ID")
+    private City city;
+
     public Employee(int id, String firstName, String lastName, String gender, int age, int cityID) {
         this.id = id;
         this.firstName = firstName;
@@ -92,7 +97,7 @@ public class Employee {
                 lastName +
                 ", пол - " + gender +
                 ", возраст - " + age +
-                ", индекс города - " + cityID
+                ", индекс города - " + cityID+" | "+city
                 ;
     }
 
