@@ -1,12 +1,23 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "City")
 public class City {
-    public final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id")
+    public int id;
+    @Column (name = "name")
     public String name;
 
     public City(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public City() {
     }
 
     public int getId() {
@@ -19,5 +30,10 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "город " + name + " (id №"+id+")";
     }
 }
