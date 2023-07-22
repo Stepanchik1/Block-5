@@ -70,7 +70,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void addEmployee(Connection connection) throws SQLException {
         Employee employee = createEmployee();
-        if (employee.getCityID() != 0) {
+        if (employee.getCity() != null) {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO employee (\n" +
                     "first_name, last_name, gender, age, city_id) \n" +
                     "VALUES (" + employee.toDataBase() + ");");
@@ -125,7 +125,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         statement2.setString(2, employee.getLastName());
         statement2.setString(3, employee.getGender());
         statement2.setInt(4, employee.getAge());
-        statement2.setInt(5, employee.getCityID());
+        statement2.setInt(5, employee.getCity().getId());
         statement2.setInt(6, id);
         final int resultSet2 = statement2.executeUpdate();
         System.out.println(resultSet2);

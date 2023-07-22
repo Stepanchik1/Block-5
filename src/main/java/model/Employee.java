@@ -3,27 +3,24 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "employee")
+@Table(name = "employee")
 
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column(name = "id")
     private int id;
-    @Column (name = "first_name")
+    @Column(name = "first_name")
     private String firstName;
-    @Column (name = "last_name")
+    @Column(name = "last_name")
     private String lastName;
-    @Column (name = "gender")
+    @Column(name = "gender")
     private String gender;
-    @Column (name = "age")
+    @Column(name = "age")
     private int age;
-    @Column (name = "city_id")
-    private int cityID;
 
-    @Column
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_ID")
+    @JoinColumn(name = "city_id")
     private City city;
 
     public Employee(int id, String firstName, String lastName, String gender, int age, int cityID) {
@@ -32,7 +29,6 @@ public class Employee {
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
-        this.cityID = cityID;
     }
 
     public Employee(int id, String firstName, String lastName, String gender, int age) {
@@ -82,12 +78,17 @@ public class Employee {
         this.age = age;
     }
 
-    public int getCityID() {
-        return cityID;
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setCityID(int cityID) {
-        this.cityID = cityID;
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override
@@ -97,12 +98,14 @@ public class Employee {
                 lastName +
                 ", пол - " + gender +
                 ", возраст - " + age +
-                ", индекс города - " + cityID+" | "+city
+                ", " + city
                 ;
     }
 
-    public String toDataBase () {
-        if (cityID==0) {return "'"+firstName+"', '"+lastName+"', '"+gender+"', "+age;}
-        return "'"+firstName+"', '"+lastName+"', '"+gender+"', "+age+", "+cityID;
+    public String toDataBase() {
+        if (city == null) {
+            return "'" + firstName + "', '" + lastName + "', '" + gender + "', " + age;
+        }
+        return "'" + firstName + "', '" + lastName + "', '" + gender + "', " + age + ", " + city;
     }
 }

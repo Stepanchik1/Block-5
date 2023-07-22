@@ -14,8 +14,9 @@ public class City {
     @Column (name = "city_name")
     public String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "city")
-    Set<Employee> employees = new HashSet <> () ;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,
+            fetch = FetchType.EAGER, mappedBy = "city")
+    private Set<Employee> employees = new HashSet <> ();
 
 
     public City(int id, String name) {
@@ -41,5 +42,17 @@ public class City {
     @Override
     public String toString() {
         return "город " + name + " (id №" + id + ")";
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }

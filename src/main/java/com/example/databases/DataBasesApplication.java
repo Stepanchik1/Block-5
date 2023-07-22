@@ -1,5 +1,6 @@
 package com.example.databases;
 
+import model.City;
 import model.Employee;
 
 import java.sql.*;
@@ -21,10 +22,15 @@ public class DataBasesApplication {
 
         CityDAOImpl cityDAOimpl = new CityDAOImpl();
 
-        //System.out.println(cityDAOimpl.findById(1));
-        System.out.println(employeeDAOImpl.findEmployee(connection, 5));
+        //собсна проверяю, что хибернейт работает
+        City newCity = cityDAOimpl.findById(1);
+        System.out.println(newCity);
+        Employee employee = employeeDAOImpl.findById(5);
+        System.out.println(employee);
 
-            entity(employeeDAOImpl);
+        //другая часть дз
+
+        entity(employeeDAOImpl);
 
         for (; ; ) {
             System.out.println("Для выхода нажмите 0");
